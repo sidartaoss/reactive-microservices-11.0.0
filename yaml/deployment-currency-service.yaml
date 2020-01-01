@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currency-service
+  template:
+    metadata:
+      labels:
+        app: currency-service
+    spec:
+      containers:
+      - name: currency-service
+        image: sidartasilva/currency-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5701
+        - containerPort: 8087
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: currency-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: currency-service
+  ports:
+  - name: hazelcast
+    port: 5701
+  - name: app
+    port: 8087

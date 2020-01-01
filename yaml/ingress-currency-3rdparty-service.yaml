@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: public-routing-currency-3rdparty-service
+spec:
+  rules:
+    - host: currency-3rdparty-service-reactive-microservices.sidartasilva.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: currency-3rdparty-service
+              servicePort: 8086
